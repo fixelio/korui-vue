@@ -1,15 +1,19 @@
 <template>
   <div class="h-screen flex justify-center items-center">
-    <Button color="success" @click="guardar">Guardar</Button>
+    <Dropdown.Menu>
+      <Dropdown.Trigger>
+        <Button>Dropdown</Button>
+      </Dropdown.Trigger>
+      <Dropdown.Content>
+        <Dropdown.Item>Item #1</Dropdown.Item>
+        <Dropdown.Item>Item #2</Dropdown.Item>
+      </Dropdown.Content>
+    </Dropdown.Menu>
   </div>
 </template>
 
 <script setup>
 
-import Button from './components/korui/Button.vue/Button.vue'
-
-function guardar() {
-  console.log('guardando')
-}
+import * as Dropdown from './components/korui/Dropdown/Dropdown'
 
 </script>
