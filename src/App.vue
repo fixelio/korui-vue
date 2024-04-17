@@ -1,45 +1,26 @@
 <template>
   <div class="h-screen flex justify-center items-center">
-    <Button @click="handleOpen">Open Modal</Button>
-
-    <Modal.Root
-      :open="isOpen"
-      @close="handleClose"
-    >
-      <Modal.Header>
-        <h2>Modal Title</h2>
-      </Modal.Header>
-      <Modal.Body>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, deleniti quos voluptate autem fuga, adipisci consequuntur obcaecati nihil aut, praesentium reiciendis! At magnam tempore quibusdam qui voluptate sint laudantium saepe?</p>
-      </Modal.Body>
-      <Modal.Footer>
-        <div class="flex justify-end gap-x-2">
-          <Button @click="handleClose" color="secondary">Cerrar</Button>
-          <Button @click="handleConfirm">Confirmar</Button>
-        </div>
-      </Modal.Footer>
-    </Modal.Root>
+    <div class="max-w-2xl w-full">
+      
+    </div>
   </div>
 </template>
 
 <script setup>
 
 import { ref } from 'vue'
-import Button from '@/components/korui/Button/Button.vue'
-import * as Modal from '@/components/korui/Modal/Modal'
+import Datatable from '@/components/korui/Datatable/Datatable.vue'
 
-const isOpen = ref(false)
+const products = ref([
+  { id: 1, name: 'Product 1', price: 100 },
+  { id: 2, name: 'Product 2', price: 200 },
+  { id: 3, name: 'Product 3', price: 300 },
+])
 
-function handleOpen() {
-  isOpen.value = true
-}
+const headers = ref(['Id', 'Nombre', 'Precio'])
 
-function handleClose() {
-  isOpen.value = false
-}
-
-function handleConfirm() {
-  isOpen.value = false
+function handleDestroy(item) {
+  products.value = products.value.filter((product) => product.id !== item.id)
 }
 
 </script>
