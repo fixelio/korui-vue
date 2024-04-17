@@ -1,6 +1,6 @@
 ## Datatable
 
-El componente Button es un componente de botón que se puede personalizar con colores y tamaños.
+El componente Datatable es una tabla que se puede personalizar con los datos que se le pasen.
 
 ### Ejemplo
 
