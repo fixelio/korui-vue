@@ -13,7 +13,8 @@
     "classnames": "^2.5.1",
     "tailwindcss-elevation": "^2.0.0",
     "tailwindcss-ripple": "^0.7.1",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-debounce": "^5.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

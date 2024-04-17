@@ -1,0 +1,7 @@
+export { default as Root } from './TableRoot.vue'
+export { default as Body } from './TableBody.vue'
+export { default as Head } from './TableHead.vue'
+export { default as Row } from './TableRow.vue'
+export { default as ExpandedRow } from './TableExpandedRow.vue'
+export { default as Cell } from './TableCell.vue'
+export { default as HeadCell } from './TableHeadCell.vue'
