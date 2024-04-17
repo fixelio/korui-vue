@@ -16,7 +16,7 @@ Este componente es un campo de texto con un label y un mensaje de error opcional
 <script setup>
 
 import { useForm } from '@inertiajs/vue3'
-import InputField from '@/Components/korui/InputField/InputField'
+import InputField from '@/Components/korui/InputField/InputField.vue'
 
 const form = useForm({
   name: '',
