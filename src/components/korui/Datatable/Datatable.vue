@@ -25,11 +25,20 @@
               </div>
             </form>
           </div>
+          <div class="flex justify-end gap-x-2">
+            <Link
+              :href="route(createRoute)"
+              class="flex justify-center items-center gap-x-1 text-white font-medium rounded-lg shadow hover:shadow-lg hover:opacity-90 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 focus:ring-4 bg-blue-500 active:bg-blue-600 ripple-bg-blue-400 focus:ring-blue-400"
+            >
+              <PlusIcon class="w-4 h-4 stroke-2" />
+              <span>Registrar</span>
+            </Link>
+          </div>
         </div>
         <div class="overflow-visible">
           <Table.Root hoverable>
             <Table.Head>
-              <Table.HeadCell v-for="header in computedHeaders">{{ header }}</Table.HeadCell>
+              <Table.HeadCell v-for="header in computedHeaders">{{ header.displayText }}</Table.HeadCell>
               <Table.HeadCell>
                 <span class="sr-only">Acciones</span>
               </Table.HeadCell>
@@ -37,7 +46,7 @@
             <Table.Body>
               <Table.Row v-for="item in computedData" :key="item.id || useId()">
                 <Table.Cell v-for="key in Object.keys(item)" :key class="text-sm">{{ item[key] }}</Table.Cell>
-                <Table.Cell>
+                <Table.Cell class="flex justify-end">
                   <Dropdown.Menu>
                     <Dropdown.Trigger>
                       <button class="p-2 hover:bg-gray-200 rounded-full">
@@ -64,7 +73,20 @@
             </Table.Body>
           </Table.Root>
         </div>
-        <div class="flex justify-end items-center mt-8">
+        <div class="flex justify-between items-start mt-8">
+          <div class="relative">
+            <label for="items-per-page" class="text-sm pb-2">Elementos por página</label>
+            <select
+              class="w-full border px-2 py-1 rounded-lg"
+              name="items-per-page"
+              id="items-per-page"
+              v-model="itemsPerPage"
+            >
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </div>
           <Paginator
             v-model="currentPage"
             :total-items="data.length"
@@ -101,12 +123,13 @@
 <script setup>
 
 import { ref, computed } from 'vue'
+import { Link } from '@inertiajs/vue3'
 import * as Table from '../Table/Table'
 import * as Dropdown from '../Dropdown/Dropdown'
 import * as Modal from '../Modal/Modal'
 import Paginator from '../Paginator/Paginator.vue'
 import Button from '../Button/Button.vue'
-import { MagnifyingGlassIcon, EllipsisVerticalIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { MagnifyingGlassIcon, PlusIcon, EllipsisVerticalIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import capitalizeFirstLetter from '@/Utils/capitalizeFirstLetter'
 import useId from '@/Utils/useId'
 
@@ -120,6 +143,7 @@ const props = defineProps({
   },
   title: String,
   editRoute: String,
+  createRoute: String,
   entity: String,
 })
 
@@ -139,7 +163,16 @@ const computedHeaders = computed(() => {
 })
 
 const computedData = computed(() => {
-  return props.data.slice((currentPage.value - 1) * itemsPerPage.value, currentPage.value * itemsPerPage.value)
+  const itemsPerPageAsNumber = Number(itemsPerPage.value)
+  const paginated = props.data.slice((currentPage.value - 1) * itemsPerPageAsNumber, currentPage.value * itemsPerPageAsNumber)
+  return paginated.map((item) => {
+    const result = {}
+    for(const header of props.headers) {
+      result[header.name] = item[header.name]
+    }
+
+    return result
+  })
 })
 
 function handleSearch() {
