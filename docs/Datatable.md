@@ -11,6 +11,7 @@ El componente Datatable es una tabla que se puede personalizar con los datos que
     :headers
     title="Productos"
     editRoute="products.edit"
+    createRoute="products.create"
     entity="product"
     @onDelete
   />
@@ -27,7 +28,11 @@ const products = ref([
   { id: 3, name: 'Product 3', price: 300 },
 ])
 
-const headers = ref(['Id', 'Nombre', 'Precio'])
+const headers = ref([
+  { name: 'id', displayText: '#' },
+  { name: 'name', displayText: 'Nombre' },
+  { name: 'price', displayText: 'Precio' },
+])
 
 const destroyForm = useForm()
 
@@ -57,6 +62,10 @@ Título de la tabla.
 - __editRoute__: String
 
 Nombre de la ruta para editar la entidad. Debe estar en el formato de las rutas de Laravel/Inertia.
+
+- __createRoute__: String
+
+Nombre de la ruta para crear una nueva entidad. Debe estar en el formato de las rutas de Laravel/Inertia.
 
 - __entity__: String
 
